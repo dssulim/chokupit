@@ -22,13 +22,13 @@
           <div class="menu" v-if="canLogin">
             <Link
               v-if="$page.props.auth.user"
-              :href="route('dashboard')"
+              :href="route('home')"
               class="text-sm text-gray-700 dark:text-gray-500 underline"
-              >Dashboard</Link
+              >Home</Link
             >
             <ul class="menu-link" v-else>
               <li class="menu-list">
-                <Link :href="route('about')"> About wel</Link>
+                <Link :href="route('about')"> About </Link>
               </li>
               <li class="menu-list">
                 <Link :href="route('login')"> Login </Link>

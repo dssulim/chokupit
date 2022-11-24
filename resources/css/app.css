@@ -184,10 +184,12 @@
   padding: 10px;
 }
 
-.calendar {
+.calendar-box {
   min-width: 300px;
   min-height: 300px;
-  border: 1px solid blue;
+  border: 1px solid #57a6eb;
+  border-radius: 10px;
+  padding: 10px;
 }
 
 .my-content {
@@ -195,6 +197,7 @@
   border: 1px solid blue;
   min-height: 50px;
   min-width: 300px;
+  padding: 10px;
 }
 
 @media (min-width: 767px) {

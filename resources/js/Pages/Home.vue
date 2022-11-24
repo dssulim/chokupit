@@ -1,5 +1,6 @@
 <script setup>
 import AuthLayout from '@/Layouts/AuthLayout.vue';
+import CalendarSelector from '@/Components/Calendar/CalendarSelector.vue';
 import { Head } from '@inertiajs/inertia-vue3';
 
 </script>
@@ -9,10 +10,12 @@ import { Head } from '@inertiajs/inertia-vue3';
 
     <AuthLayout>
        <div class="wrapper-home">
-        <div class="calendar">
-            
+        <div class="calendar-box">
+            <CalendarSelector />
         </div>
-        <div class="my-content"></div>
+        <div class="my-content">
+            ВЫВОД СПИСКОВ НА ТЕКУЩУЮ И БУДУЮЩИЕ ДАТЫ
+        </div>
        </div>   
     </AuthLayout>
 </template>

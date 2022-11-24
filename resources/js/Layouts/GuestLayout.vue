@@ -25,7 +25,7 @@
               v-if="$page.props.auth.user"
               :href="route('home')"
               class="text-sm text-gray-700 dark:text-gray-500 underline"
-              >Dashboard</Link
+              >Home</Link
             >
             <ul class="menu-link" v-else>
               <li class="menu-list">
