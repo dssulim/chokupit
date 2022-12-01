@@ -1,9 +1,12 @@
 import getDaysOfMonth from "@/Components/Calendar/Composables/getDays";
 import getFirstWeekday from "@/Components/Calendar/Composables/getWeekDay";
+import getISO from "@/Components/Calendar/Composables/getISO";
 
 export const calendar = {
   state: {
-    days: []
+    days: [],
+
+    selectDay: ""
   },
   
   actions: {
@@ -26,18 +29,37 @@ export const calendar = {
         const days = day;
             
         commit('updateMonth', days);
+    },
+
+    getChoiceDay({commit}, day) {
+      //console.log(day)
+      commit('updateSelectDay', day);
     }
   },
 
   mutations: {
     updateMonth(state, days) {
       state.days = days
+    },
+
+    updateSelectDay(state, day) {
+      state.selectDay = day
+      //console.log(state.selectDay)
     }
   },
   
   getters: {
     dayOfMonth(state) {
       return state.days
-  },
+    },
+
+    getDayList(state) {
+      if (state.selectDay.length != 0) {
+         return getISO(state.selectDay)
+      } 
+      else {
+        return state.selectDay
+      }    
+    }
   },
 }

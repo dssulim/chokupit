@@ -1,4 +1,7 @@
 <template>
+
+<Head title="Welcome" />
+
   <div class="wrapper">
     <div class="wrapper-box center">
       <div class="header">
@@ -61,13 +64,12 @@
   </div>
 </template>
   
-  <script setup>
-//import { ref } from "vue";
+<script setup>
+
 import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
-import { Link } from "@inertiajs/inertia-vue3";
+import { Link, Head } from "@inertiajs/inertia-vue3";
 
-//const showingNavigationDropdown = ref(false);
 defineProps({
   canLogin: Boolean,
   canRegister: Boolean,

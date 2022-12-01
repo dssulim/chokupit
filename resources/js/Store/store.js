@@ -5,6 +5,7 @@ const store = createStore({
   modules: {
     calendar
   }
+  
 });
 
 export default store;

@@ -1,6 +1,6 @@
 <template>
   <div class="days-wrapper">
-    <div :class="calendarItem()"> 
+    <div :class="[calendarItem(), {choice: isActive}]" @click="choiceDay"> 
       {{ days.getDate() }}
     </div>
   </div>
@@ -8,6 +8,7 @@
 
 <script>
 import getISO from './Composables/getISO';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'CalendarDays',
@@ -17,14 +18,23 @@ export default {
   data () {
     return {
       date: new Date(),
+      isActive: false
     };
   },
 
   methods: {
+   
+    ...mapActions(["choiceDays"]),
+
+    choiceDay(selectDay) {
+      this.isActive = !this.isActive
+      this.$emit('choiceDay', this.days)
+    },
+
     calendarItem() {
       
       const isCurrentDate = getISO(new Date()) === getISO(this.days);
-      
+      //console.log(this.days)
       return {
         primary: isCurrentDate,
         default: !isCurrentDate,
@@ -71,5 +81,10 @@ export default {
     border-radius: 50%;
     cursor: pointer;
     color: #ffffff;
+  }
+  .choice {
+    background-color: #8fc3f1;
+    border-radius: 50%;
+    cursor: pointer;
   }
 </style>

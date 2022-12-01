@@ -13,14 +13,15 @@ const props = defineProps({
   },
 });
 
-const closeOnEscape = (e) => {
-  if (open.value && e.key === "Escape") {
-    open.value = false;
-  }
-};
+ const closeOnEscape = (e) => {
+   console.log(open.value)
+   if (open.value && e.key === "Escape") {
+     open.value = false;
+   }
+ };
 
-onMounted(() => document.addEventListener("keydown", closeOnEscape));
-onUnmounted(() => document.removeEventListener("keydown", closeOnEscape));
+ onMounted(() => document.addEventListener("keydown", closeOnEscape));
+ onUnmounted(() => document.removeEventListener("keydown", closeOnEscape));
 
 const widthClass = computed(() => {
   return {

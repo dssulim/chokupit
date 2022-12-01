@@ -14,7 +14,7 @@
   </div>
   <div class="calendar-body grid grid-cols-7">
     <div class="calendar-days" v-for="(day, idx) in dayOfMonth" :key="idx">
-      <CalendarDays :days="day" v-if="day" />
+      <CalendarDays :days="day" v-if="day" @choiceDay="choiceDay"/>
     </div>
   </div>
 </template>
@@ -32,18 +32,29 @@ export default {
 
   props: ["selectedDate"],
 
+  data() {
+    return {
+      date: new Date()
+    }
+  },
+
   computed: {
-    ...mapGetters(["dayOfMonth"]),
+    ...mapGetters(["dayOfMonth", "getDayList"]),
   },
 
   watch: {
     selectedDate() {
       this.getDays(this.selectedDate);
     },
+    
   },
 
   methods: {
-    ...mapActions(["getDays"]),
+    ...mapActions(["getDays", "getChoiceDay"]),
+
+    choiceDay(selectedDate) {
+      this.$store.dispatch('getChoiceDay', this.date = selectedDate)
+    },
 
     weekDayName(i) {
       const d = new Date("2021-04-05");

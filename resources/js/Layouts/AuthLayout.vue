@@ -18,7 +18,7 @@
               <DropdownLink :href="route('profile.edit')">
                 Profile
               </DropdownLink>
-              <DropdownLink :href="route('home')">
+              <DropdownLink :href="route('shops.index')">
                 Create List
               </DropdownLink>
               <DropdownLink :href="route('home')"> My Lists </DropdownLink>
@@ -76,7 +76,7 @@
                     <DropdownLink :href="route('profile.edit')">
                       Profile
                     </DropdownLink>
-                    <DropdownLink :href="route('home')">
+                    <DropdownLink :href="route('shops.index')">
                       Create List
                     </DropdownLink>
                     <DropdownLink :href="route('home')">

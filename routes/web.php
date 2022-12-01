@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\ShopController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +29,16 @@ Route::get('/', function () {
 });
 
 Route::get('/about', AboutController::class, 'about') -> name('about');
+Route::get('/calendar_page', CalendarController::class, 'calendar') -> name('calendar');
+
+
+
+Route::resources([
+    'catalogs' => CatalogController::class,
+    'shops' => ShopController::class,
+]);
+
+//Route::post('/catalogs', [CatalogController::class, 'store'])->name('catalogs.store');
 
 Route::get('/home', function () {
     return Inertia::render('Home');
@@ -36,5 +49,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 
 require __DIR__.'/auth.php';

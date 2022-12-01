@@ -36,8 +36,8 @@
       </button>
     </div>
   </div>
-  <Calendar :selectedDate = "date" 
-  
+  <Calendar 
+    :selectedDate = "date" 
   />
 </template>
 

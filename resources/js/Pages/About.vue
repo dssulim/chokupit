@@ -11,9 +11,6 @@
           любых совместных активностей !
         </p>
       </div>
-      <Link href="/login">
-        <button class="btn btn-primary">Get started</button>
-      </Link>
     </div>
   </GuestLayout>
 </template>
