@@ -11,6 +11,9 @@
           любых совместных активностей !
         </p>
       </div>
+      <Link href="/">
+            <button class="btn btn-primary w-20">Back</button>
+          </Link>
     </div>
   </GuestLayout>
 </template>
@@ -18,4 +21,5 @@
 <script setup>
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import { Link, Head } from "@inertiajs/inertia-vue3";
+
 </script>

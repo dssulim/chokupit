@@ -16,7 +16,24 @@ class CatalogController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Catalogs/Index');
+        $catalogs = Catalog::where('user_id', '=', auth()->id())
+            ->orderBy('list_data', 'asc')
+                ->get();
+
+        $currentDay = date('Y-m-d');
+        $lists = [];
+        $dateList = [];
+
+        foreach($catalogs as $catalog => $value) {
+            
+            if($currentDay > $value->list_data) {
+               array_push($dateList, $value->list_data);
+            } else {
+                array_push($lists, $catalogs[$catalog]);
+                array_push($dateList, $value->list_data);
+            }
+        }
+        return Inertia::render('Catalogs/Index', compact('lists', 'catalogs', 'dateList'));
     }
 
     /**
@@ -36,8 +53,15 @@ class CatalogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request)
-    {    
+    public function store(StoreRequest $request) 
+    {   
+        $currentDay = date('Y-m-d');
+
+        if($request->list_data < $currentDay) {
+
+           return redirect(route('catalogs.create'))->with('message', $request->list_data);
+        };
+        
         Catalog::create($request->validated());
         return redirect(route('catalogs.index'));
     }

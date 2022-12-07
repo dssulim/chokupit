@@ -18,11 +18,11 @@
               <DropdownLink :href="route('profile.edit')">
                 Profile
               </DropdownLink>
-              <DropdownLink :href="route('shops.index')">
+              <DropdownLink :href="route('catalogs.create')">
                 Create List
               </DropdownLink>
-              <DropdownLink :href="route('home')"> My Lists </DropdownLink>
-              <DropdownLink :href="route('home')"> My Shops </DropdownLink>
+              <DropdownLink :href="route('catalogs.index')"> My Lists </DropdownLink>
+              <DropdownLink :href="route('shops.index')"> My Shops </DropdownLink>
               <DropdownLink :href="route('logout')" method="post" as="button">
                 Log Out
               </DropdownLink>
@@ -76,13 +76,13 @@
                     <DropdownLink :href="route('profile.edit')">
                       Profile
                     </DropdownLink>
-                    <DropdownLink :href="route('shops.index')">
+                    <DropdownLink :href="route('catalogs.create')" @click="aaa">
                       Create List
                     </DropdownLink>
-                    <DropdownLink :href="route('home')">
+                    <DropdownLink :href="route('catalogs.index')">
                       My Lists
                     </DropdownLink>
-                    <DropdownLink :href="route('home')">
+                    <DropdownLink :href="route('shops.index')">
                       My Shops
                     </DropdownLink>
                     <DropdownLink
@@ -124,4 +124,6 @@ import { Link } from "@inertiajs/inertia-vue3";
 import DropdownAuth from "@/Components/DropdownAuth.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import DropdownFullScreen from "@/Components/DropdownFullScreen.vue";
+import store from "@/Store/store";
+
 </script>

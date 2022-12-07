@@ -6,7 +6,9 @@ export const calendar = {
   state: {
     days: [],
 
-    selectDay: ""
+    selectDay: "",
+
+    dateList: [] 
   },
   
   actions: {
@@ -32,8 +34,11 @@ export const calendar = {
     },
 
     getChoiceDay({commit}, day) {
-      //console.log(day)
       commit('updateSelectDay', day);
+    },
+
+    getDateUserList({commit}, allDate) {
+      commit('updateDateUserList', allDate)
     }
   },
 
@@ -44,7 +49,10 @@ export const calendar = {
 
     updateSelectDay(state, day) {
       state.selectDay = day
-      //console.log(state.selectDay)
+    },
+
+    updateDateUserList(state, allDate) {
+      state.dateList = allDate
     }
   },
   
@@ -55,11 +63,15 @@ export const calendar = {
 
     getDayList(state) {
       if (state.selectDay.length != 0) {
-         return getISO(state.selectDay)
+        return getISO(state.selectDay)
       } 
       else {
         return state.selectDay
       }    
+    }, 
+
+    getAllDateList(state) {
+      return state.dateList
     }
   },
 }

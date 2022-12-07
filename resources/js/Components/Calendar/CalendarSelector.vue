@@ -38,6 +38,7 @@
   </div>
   <Calendar 
     :selectedDate = "date" 
+    :dateList = "dateList"
   />
 </template>
 
@@ -50,6 +51,8 @@ export default {
   components: {
     Calendar,
   },
+
+  props: ['dateList'],
 
   data() {
     return {
