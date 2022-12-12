@@ -6,20 +6,22 @@ import InputErrorData from '@/Components/InputErrorData.vue'
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 import getISO from '@/Components/Calendar/Composables/getISO'
-import { computed, ref } from 'vue';
+import { computed, reactive, ref, watch } from 'vue';
 import store from '@/Store/store';
 
 const props = defineProps({
   user_id: Number,
 })
 
-const choiceDay = ref(computed(() => store.getters.getDayList)) 
+const choiceDay = computed(() => store.getters.getDayList)
 
-const form = useForm ({
+const currentDay = getISO(new Date())
+
+const form = reactive(useForm ({
   name: '',
   user_id: props.user_id,
-  list_data: choiceDay 
-});
+  list_data: ''
+})) 
 
 const submit = () => {
     form.post(route('catalogs.store'), { 
@@ -39,18 +41,15 @@ const submit = () => {
       </div>
       <div class="my-content mt-5 p-2.5 overflow-y-auto">
         <h1 class="text-stone-700 text-lg font-bold underline underline-offset-8">Create List</h1>
-        <h3 class="mt-4 text-sky-600 font-bold">Выберите дату списка на календаре, затем введите название.</h3>
+        <h3 class="mt-4 text-sky-600 font-bold">Выберите дату списка, затем введите название.</h3>
         <form class="mt-6" @submit.prevent= "submit">
-          <TextInput id="day" type="hidden" class="mt-1 block w-full" v-model="form.list_data" required autofocus autocomplete="day" />
-          <InputErrorData class="" :message="form.errors.list_data" />
+          <div class="mb-4">
+            <InputLabel for="day" value="Выберите дату" />
+            <TextInput id="day" type="date" :min="currentDay" class="mt-1 block w-full" v-model="form.list_data" required autofocus autocomplete="day" />
+            <InputErrorData class="" :message="form.errors.list_data" />
+          </div>
           <div class="text-lg font-bold text-red-600">
             {{ $page.props.flash.message }}
-          </div>
-          <div v-if="choiceDay" class="mb-4">
-              <InputLabel for="data" value="Дата списка" />
-              <div class="border border-gray-300 rounded-md shadow-sm mt-1 block w-full px-3 py-2 bg-white" >
-                {{choiceDay}}
-              </div>
           </div>
           <div>
             <InputLabel for="name" value="Введите название списка" />
@@ -60,9 +59,9 @@ const submit = () => {
                 <button type="submit" class="btn-primary">Create</button>
             </div>
         </form>
-      </div>
-     
+      </div>    
     </div>
   </AuthLayout>
 </template>
+
 

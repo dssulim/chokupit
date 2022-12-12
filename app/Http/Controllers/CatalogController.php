@@ -44,7 +44,14 @@ class CatalogController extends Controller
     public function create()
     {
         $user_id = auth()->id();
-        return Inertia::render('Catalogs/Create', compact('user_id'));
+        $lists = Catalog::where('user_id', '=', auth()->id())->select('list_data')->get();
+
+        $dateList = [];
+        foreach($lists as $list => $value) {
+            array_push($dateList, $value->list_data);
+        }
+       
+        return Inertia::render('Catalogs/Create', compact('user_id', 'dateList'));
     }
 
     /**
@@ -55,13 +62,6 @@ class CatalogController extends Controller
      */
     public function store(StoreRequest $request) 
     {   
-        $currentDay = date('Y-m-d');
-
-        if($request->list_data < $currentDay) {
-
-           return redirect(route('catalogs.create'))->with('message', $request->list_data);
-        };
-        
         Catalog::create($request->validated());
         return redirect(route('catalogs.index'));
     }

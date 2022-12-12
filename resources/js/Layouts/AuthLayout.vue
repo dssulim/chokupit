@@ -76,7 +76,7 @@
                     <DropdownLink :href="route('profile.edit')">
                       Profile
                     </DropdownLink>
-                    <DropdownLink :href="route('catalogs.create')" @click="aaa">
+                    <DropdownLink :href="route('catalogs.create')">
                       Create List
                     </DropdownLink>
                     <DropdownLink :href="route('catalogs.index')">
