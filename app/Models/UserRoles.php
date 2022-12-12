@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Shop extends Model
+class UserRoles extends Model
 {
     use HasFactory;
 
-    protected $table = "shops";
+    protected $table = "user_roles";
 
     /**
      * The attributes that are mass assignable.
@@ -17,6 +18,9 @@ class Shop extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'shop_name',
+        'user_roles_name',
+        'user_roles_description',
+        'created_at',
+        'updated_at',
     ];
 }
