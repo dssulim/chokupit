@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +37,7 @@ Route::get('/calendar_page', CalendarController::class, 'calendar') -> name('cal
 Route::resources([
     'catalogs' => CatalogController::class,
     'shops' => ShopController::class,
+    'products' => ProductController::class
 ]);
 
 //Route::post('/catalogs', [CatalogController::class, 'store'])->name('catalogs.store');

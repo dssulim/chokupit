@@ -13,7 +13,7 @@ const props = defineProps({
   user_id: Number,
 })
 
-const choiceDay = computed(() => store.getters.getDayList)
+//const choiceDay = computed(() => store.getters.getDayList)
 
 const currentDay = getISO(new Date())
 
