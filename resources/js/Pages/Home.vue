@@ -26,12 +26,12 @@ import { Head, Link } from "@inertiajs/inertia-vue3";
             </div>
             <div class="flex w-full px-4 min-w-[280px] items-center justify-between mb-4">
                 <div>
-                    <Link :href="route('catalogs.index')">
+                    <Link :href="route('shoppingLists.index')">
                         <button class="btn btn-primary">My Lists</button>
                     </Link>
                 </div>
                 <div>
-                    <Link :href="route('catalogs.create')">
+                    <Link :href="route('shoppingLists.create')">
                         <button class="btn btn-primary">Create List</button>
                     </Link>
                 </div>

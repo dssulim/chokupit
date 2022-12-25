@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CalendarController;
@@ -32,13 +33,22 @@ Route::get('/', function () {
 Route::get('/about', AboutController::class, 'about') -> name('about');
 Route::get('/calendar_page', CalendarController::class, 'calendar') -> name('calendar');
 
-
+Route::get('/clear', function() {    
+    Artisan::call('cache:clear');    
+    Artisan::call('config:cache');    
+    Artisan::call('view:clear');  
+    Artisan::call('route:clear');    
+    return "Кэш очищен.";});
 
 Route::resources([
+    'shoppingLists' => ShoppingListController::class,
     'catalogs' => CatalogController::class,
     'shops' => ShopController::class,
     'products' => ProductController::class
 ]);
+
+// Route::get('/shoppingLists', [ShoppingListController::class, 'index']);
+// Route::get('/shoppingLists', 'App\Http\Controllers\ShoppingListController@index');
 
 //Route::post('/catalogs', [CatalogController::class, 'store'])->name('catalogs.store');
 
