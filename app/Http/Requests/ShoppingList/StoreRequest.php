@@ -25,9 +25,9 @@ class StoreRequest extends FormRequest
     public function rules(User $user) :array
     {
         return [
-            'name' => ['required', 'string'],
-            'user_id' => ['required', 'integer'],
-            'list_data' => ['string']
+            'list_name' => ['required', 'string'],
+            'owner_user_id' => ['required', 'integer'],
+            'shopping_list_date' => ['string']
         ];
     }
 }
