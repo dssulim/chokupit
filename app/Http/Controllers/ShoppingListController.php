@@ -35,7 +35,7 @@ class ShoppingListController extends Controller
             }
         }
         
-        dd([$lists, $shoppingLists, $dateList]);
+        //dd([$lists, $shoppingLists, $dateList]);
         return Inertia::render('ShoppingList/Index', compact('lists', 'shoppingLists', 'dateList'));
     }
 
@@ -70,6 +70,7 @@ class ShoppingListController extends Controller
         // $currentDay = date('Y-m-d');
         // ShoppingList::create(['owner_user_id'=>1, 'shopping_list_date'=>$currentDay, 'list_name'=>'Тест 2', 'shop_id'=>'1']);
         ShoppingList::create($request->validated());
+        
         return redirect(route('shoppingList.index'));
     }
 
