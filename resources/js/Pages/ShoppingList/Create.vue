@@ -21,7 +21,7 @@ const form = reactive(useForm ({
   list_name: '',
   owner_user_id: props.user_id,
   shopping_list_date: '',
-  shop_id: '1'
+  // shop_id: 'NULL'
 })) 
 
 const submit = () => {
