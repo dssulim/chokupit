@@ -76,10 +76,10 @@
                     <DropdownLink :href="route('profile.edit')">
                       Profile
                     </DropdownLink>
-                    <DropdownLink :href="route('catalogs.create')">
+                    <DropdownLink :href="route('shoppingLists.create')">
                       Create List
                     </DropdownLink>
-                    <DropdownLink :href="route('catalogs.index')">
+                    <DropdownLink :href="route('shoppingLists.index')">
                       My Lists
                     </DropdownLink>
                     <DropdownLink :href="route('shops.index')">

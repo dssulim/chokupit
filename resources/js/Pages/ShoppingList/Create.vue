@@ -18,13 +18,13 @@ const choiceDay = computed(() => store.getters.getDayList)
 const currentDay = getISO(new Date())
 
 const form = reactive(useForm ({
-  name: 'Тест',
-  // user_id: props.user_id,
-  user_id: 1,
-  list_data: '!!!'
+  name: '',
+  user_id: props.user_id,
+  list_data: ''
 })) 
 
 const submit = () => {
+  console.log(form);
     form.post(route('shoppingLists.store'), {      
       onSuccess: () => form.reset(), 
     })
