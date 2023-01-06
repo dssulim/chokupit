@@ -11,6 +11,8 @@
 import getISO from './Composables/getISO';
 import noteDays from './Composables/noteDay';
 import { mapActions } from 'vuex';
+import { computed } from 'vue';
+import { usePage } from '@inertiajs/inertia-vue3';
 
 export default {
   name: 'CalendarDays',
@@ -24,6 +26,11 @@ export default {
     };
   },
 
+  setup() {
+    const allList = computed(() => usePage().props.value.dateList)
+    return { allList }
+  },
+
   methods: {
    
     ...mapActions(["choiceDays"]),
@@ -34,31 +41,31 @@ export default {
     },
     
     calendarItem() {
-      //const note = noteDays(this.dateList);
-      // let classes = "";
-      // let purchase = "";
+      const note = noteDays(this.allList);
+      let classes = "";
+      let purchase = "";
 
       const isCurrentDate = getISO(new Date()) === getISO(this.days);
-      // for (let i = 0; i <= note.length - 1; i++) {
-      //   if (
-      //     note[i] === getISO(this.days) &&
-      //     note.length &&
-      //     note[i] >= getISO(new Date())
-      //   ) {
-      //     classes = true;
-      //   } else if (
-      //     note[i] === getISO(this.days) &&
-      //     note.length &&
-      //     note[i] < getISO(new Date())
-      //   ) {
-      //     purchase = true;
-      //   }
-      // }
+      for (let i = 0; i <= note.length - 1; i++) {
+        if (
+          note[i] === getISO(this.days) &&
+          note.length &&
+          note[i] >= getISO(new Date())
+        ) {
+          classes = true;
+        } else if (
+          note[i] === getISO(this.days) &&
+          note.length &&
+          note[i] < getISO(new Date())
+        ) {
+          purchase = true;
+        }
+      }
       return {
         primary: isCurrentDate,
         default: !isCurrentDate,
-        // note: classes,
-        // done: purchase,
+        note: classes,
+        done: purchase,
       };
     },
   }

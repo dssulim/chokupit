@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+// use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Catalog\StoreRequest;
-use App\Models\Catalog;
+use App\Http\Requests\ShoppingList\StoreRequest;
+use App\Models\ShoppingList;
 use Inertia\Inertia;
 
-class CatalogController extends Controller
+class ShoppingListController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,24 +17,26 @@ class CatalogController extends Controller
      */
     public function index()
     {
-        $catalogs = Catalog::where('user_id', '=', auth()->id())
-            ->orderBy('list_data', 'asc')
-                ->get();
+        $shoppingLists = ShoppingList::where('owner_user_id', '=', auth()->id())
+            ->orderBy('shopping_list_date', 'asc')
+            ->get();
 
         $currentDay = date('Y-m-d');
         $lists = [];
         $dateList = [];
 
-        foreach($catalogs as $catalog => $value) {
-            
-            if($currentDay > $value->list_data) {
-               array_push($dateList, $value->list_data);
+        foreach ($shoppingLists as $shoppingList => $value) {
+
+            if ($currentDay > $value->shopping_list_date) {
+                array_push($dateList, $value->shopping_list_date);
             } else {
-                array_push($lists, $catalogs[$catalog]);
-                array_push($dateList, $value->list_data);
+                array_push($lists, $shoppingLists[$shoppingList]);
+                array_push($dateList, $value->shopping_list_date);
             }
         }
-        return Inertia::render('Catalogs/Index', compact('lists', 'catalogs', 'dateList'));
+        
+        // dd([$lists, $shoppingLists, $dateList]);
+        return Inertia::render('ShoppingList/Index', compact('lists', 'shoppingLists', 'dateList'));
     }
 
     /**
@@ -44,14 +47,15 @@ class CatalogController extends Controller
     public function create()
     {
         $user_id = auth()->id();
-        $lists = Catalog::where('user_id', '=', auth()->id())->select('list_data')->get();
+        $lists = ShoppingList::where('owner_user_id', '=', auth()->id())->select('shopping_list_date')->get();
 
         $dateList = [];
         foreach($lists as $list => $value) {
             array_push($dateList, $value->list_data);
         }
-       
-        return Inertia::render('Catalogs/Create', compact('user_id', 'dateList'));
+        // $this->store();
+        // dd([$user_id, $lists, $dateList]);
+        return Inertia::render('ShoppingList/Create', compact('user_id', 'dateList'));
     }
 
     /**
@@ -60,10 +64,14 @@ class CatalogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request) 
-    {   
-        Catalog::create($request->validated());
-        return redirect(route('catalogs.index'));
+    // public function store(StoreRequest $request)
+    public function store(StoreRequest $request)
+    {
+        // $currentDay = date('Y-m-d');
+        // ShoppingList::create(['owner_user_id'=>1, 'shopping_list_date'=>$currentDay, 'list_name'=>'Тест 2', 'shop_id'=>'1']);
+        ShoppingList::create($request->validated());
+        
+        return redirect(route('shoppingList.index'));
     }
 
     /**

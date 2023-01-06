@@ -1,13 +1,16 @@
 <?php
 
+use App\Http\Controllers;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 /*
@@ -31,14 +34,32 @@ Route::get('/', function () {
 Route::get('/about', AboutController::class, 'about') -> name('about');
 Route::get('/calendar_page', CalendarController::class, 'calendar') -> name('calendar');
 
-
+Route::get('/clear', function() {    
+    Artisan::call('cache:clear');    
+    Artisan::call('config:cache');    
+    Artisan::call('view:clear');  
+    Artisan::call('route:clear');    
+    return "Кэш очищен.";});
 
 Route::resources([
+    'shoppingLists' => ShoppingListController::class,
     'catalogs' => CatalogController::class,
     'shops' => ShopController::class,
+    'products' => ProductController::class
 ]);
 
+// Route::get('/shoppingLists', [ShoppingListController::class, 'index']);
+// Route::get('/shoppingLists', 'App\Http\Controllers\ShoppingListController@index');
+
 //Route::post('/catalogs', [CatalogController::class, 'store'])->name('catalogs.store');
+
+Route::get('/test_DB', function() {
+    if (DB::connection()->getDatabaseName())  {
+      dd('Есть контакт!');
+    } else {
+      return 'Соединения нет';
+    }
+});
 
 Route::get('/home', function () {
     return Inertia::render('Home');

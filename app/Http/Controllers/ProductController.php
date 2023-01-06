@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Catalog;
 use Inertia\Inertia;
 
-class ShopController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,7 +22,7 @@ class ShopController extends Controller
             array_push($dateList, $value->list_data);
         }
 
-        return Inertia::render('Shops/Index', compact('dateList'));
+        return Inertia::render('Products/Index', compact('dateList'));
     }
 
     /**
@@ -32,7 +32,7 @@ class ShopController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Shops/Create');
+        //
     }
 
     /**

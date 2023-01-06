@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    protected $table = "users";
 
     /**
      * The attributes that are mass assignable.
@@ -19,8 +22,16 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
+        'last_name',
+        'login',
         'password',
+        'email',
+        'phone',
+        'gender',
+        'birthday',
+        'user_role_id',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -42,8 +53,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function catalog()
-    {
-        return $this->hasMany(Catalog::class);
-    }
+    public function user_role_id(): HasOne
+	{
+		return $this->hasOne(UserRoles::class);
+	}
 }

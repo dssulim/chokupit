@@ -13,7 +13,7 @@ const props = defineProps({
   user_id: Number,
 })
 
-//const choiceDay = computed(() => store.getters.getDayList)
+const choiceDay = computed(() => store.getters.getDayList)
 
 const currentDay = getISO(new Date())
 
@@ -24,7 +24,8 @@ const form = reactive(useForm ({
 })) 
 
 const submit = () => {
-    form.post(route('catalogs.store'), { 
+  console.log(form);
+    form.post(route('shoppingLists.store'), {      
       onSuccess: () => form.reset(), 
     })
 };
@@ -32,7 +33,7 @@ const submit = () => {
 </script>
 
 <template>
-  <Head title="CreateCatalog" />
+  <Head title="CreateSoppinglists" />
 
   <AuthLayout>
     <div class="wrapper-home">
