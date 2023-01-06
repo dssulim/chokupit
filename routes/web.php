@@ -10,6 +10,7 @@ use App\Http\Controllers\ShopController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 /*
@@ -51,6 +52,14 @@ Route::resources([
 // Route::get('/shoppingLists', 'App\Http\Controllers\ShoppingListController@index');
 
 //Route::post('/catalogs', [CatalogController::class, 'store'])->name('catalogs.store');
+
+Route::get('/test_DB', function() {
+    if (DB::connection()->getDatabaseName())  {
+      dd('Есть контакт!');
+    } else {
+      return 'Соединения нет';
+    }
+});
 
 Route::get('/home', function () {
     return Inertia::render('Home');

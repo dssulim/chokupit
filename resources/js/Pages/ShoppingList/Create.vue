@@ -25,7 +25,7 @@ const form = reactive(useForm ({
 })) 
 
 const submit = () => {
-    form.post(route('shoppingList.store'), { 
+    form.post(route('shoppingLists.store'), {      
       onSuccess: () => form.reset(), 
     })
 };

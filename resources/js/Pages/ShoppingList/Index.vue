@@ -28,7 +28,7 @@ const myList = defineProps({
             You don't have Lists for the current and future date
           </div>
           <Link
-            :href="route('catalogs.create')"
+            :href="route('shoppingLists.create')"
             class="hover:underline  hover:underline-offset-8 hover:text-sky-400 text-lg text-sky-500 mt-3 font-bold"
             >Create List
           </Link>
