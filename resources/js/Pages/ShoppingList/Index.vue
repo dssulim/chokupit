@@ -38,10 +38,10 @@ const myList = defineProps({
             v-for= "(list, idx) in myList.lists" :key="idx"
           >
             <div class="flex items-center justify-start w-[40%]">
-              {{ list.list_data }}
+              {{ list.shopping_list_date }}
             </div>
             <div class="flex items-center justify-start w-[40%]">
-              {{ list.name }}
+              {{ list.list_name }}
             </div>
             <div class="hover:cursor-pointer flex items-center justify-end">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
