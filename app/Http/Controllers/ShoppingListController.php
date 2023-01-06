@@ -71,7 +71,7 @@ class ShoppingListController extends Controller
         // ShoppingList::create(['owner_user_id'=>1, 'shopping_list_date'=>$currentDay, 'list_name'=>'Тест 2', 'shop_id'=>'1']);
         ShoppingList::create($request->validated());
         
-        return redirect(route('shoppingList.index'));
+        return redirect(route('shoppingLists.index'));
     }
 
     /**

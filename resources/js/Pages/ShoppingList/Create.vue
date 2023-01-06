@@ -18,9 +18,10 @@ const choiceDay = computed(() => store.getters.getDayList)
 const currentDay = getISO(new Date())
 
 const form = reactive(useForm ({
-  name: '',
-  user_id: props.user_id,
-  list_data: ''
+  list_name: '',
+  owner_user_id: props.user_id,
+  shopping_list_date: '',
+  shop_id: '1'
 })) 
 
 const submit = () => {
@@ -46,15 +47,15 @@ const submit = () => {
         <form class="mt-6" @submit.prevent= "submit">
           <div class="mb-4">
             <InputLabel for="day" value="Выберите дату" />
-            <TextInput id="day" type="date" :min="currentDay" class="mt-1 block w-full" v-model="form.list_data" required autofocus autocomplete="day" />
-            <InputErrorData class="" :message="form.errors.list_data" />
+            <TextInput id="day" type="date" :min="currentDay" class="mt-1 block w-full" v-model="form.shopping_list_date" required autofocus autocomplete="day" />
+            <InputErrorData class="" :message="form.errors.shopping_list_date" />
           </div>
           <div class="text-lg font-bold text-red-600">
             {{ $page.props.flash.message }}
           </div>
           <div>
             <InputLabel for="name" value="Введите название списка" />
-            <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus autocomplete="name" />
+            <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.list_name" required autofocus autocomplete="name" />
           </div>
             <div class="flex items-center justify-end mt-4">
                 <button type="submit" class="btn-primary">Create</button>

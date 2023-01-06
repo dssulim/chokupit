@@ -27,7 +27,8 @@ class StoreRequest extends FormRequest
         return [
             'list_name' => ['required', 'string'],
             'owner_user_id' => ['required', 'integer'],
-            'shopping_list_date' => ['string']
+            'shopping_list_date' => ['string'],
+            'shop_id' => ['integer']
         ];
     }
 }
