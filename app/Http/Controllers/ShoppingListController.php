@@ -94,10 +94,9 @@ class ShoppingListController extends Controller
                     array_push($productlist, $product);
                 };
             };
-            dd($productlist);
         };
 
-        // return Inertia::render('ShoppingList/Show', compact('Productlist'));
+        return Inertia::render('ShoppingList/Show', compact('productlist'));
     }
 
     /**
