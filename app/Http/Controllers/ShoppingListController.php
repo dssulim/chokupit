@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 // use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\ShoppingList\StoreRequest;
+use App\Models\Product;
+use App\Models\ProductsShoppingList;
 use App\Models\ShoppingList;
 use Inertia\Inertia;
 
@@ -80,9 +82,17 @@ class ShoppingListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($shopping_list_id)
     {
-        //
+        $productsShoppingList = ProductsShoppingList::where('shopping_list_id', '=', $shopping_list_id)->get();
+
+        $lists=[];
+        foreach ($productsShoppingList as $list) {
+            array_push($lists, Product::where('id', '=', $list->product_id)->get());
+        };
+        dd($lists);
+
+        // return Inertia::render('ShoppingList/Show', compact('lists'));
     }
 
     /**
