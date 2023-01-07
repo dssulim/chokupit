@@ -87,11 +87,14 @@ class ShoppingListController extends Controller
         }else{
             $productsShoppingList = ProductsShoppingList::where('shopping_list_id', '=', $shopping_list_id)->get();
 
-            $Productlist=[];
+            $productlist=[];
             foreach ($productsShoppingList as $list) {
-                array_push($Productlist, Product::where('id', '=', $list->product_id)->get());
+                $products = Product::where('id', '=', $list->product_id)->get();
+                foreach ($products as $product) {
+                    array_push($productlist, $product);
+                };
             };
-            dd($Productlist);
+            dd($productlist);
         };
 
         // return Inertia::render('ShoppingList/Show', compact('Productlist'));
