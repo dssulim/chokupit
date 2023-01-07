@@ -8,6 +8,7 @@ use App\Http\Requests\ShoppingList\StoreRequest;
 use App\Models\Product;
 use App\Models\ProductsShoppingList;
 use App\Models\ShoppingList;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class ShoppingListController extends Controller
@@ -67,7 +68,7 @@ class ShoppingListController extends Controller
     public function store(StoreRequest $request)
     {
         ShoppingList::create($request->validated());
-                
+
         return redirect(route('shoppingLists.index'));
     }
 
@@ -79,15 +80,21 @@ class ShoppingListController extends Controller
      */
     public function show($shopping_list_id)
     {
-        $productsShoppingList = ProductsShoppingList::where('shopping_list_id', '=', $shopping_list_id)->get();
+        $shoplist = ShoppingList::where('id', $shopping_list_id)->first();
 
-        $lists=[];
-        foreach ($productsShoppingList as $list) {
-            array_push($lists, Product::where('id', '=', $list->product_id)->get());
+        if ($shoplist->owner_user_id != auth()->id()){
+            dd('Не ваш список');
+        }else{
+            $productsShoppingList = ProductsShoppingList::where('shopping_list_id', '=', $shopping_list_id)->get();
+
+            $Productlist=[];
+            foreach ($productsShoppingList as $list) {
+                array_push($Productlist, Product::where('id', '=', $list->product_id)->get());
+            };
+            dd($Productlist);
         };
-        dd($lists);
 
-        // return Inertia::render('ShoppingList/Show', compact('lists'));
+        // return Inertia::render('ShoppingList/Show', compact('Productlist'));
     }
 
     /**
