@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Catalog;
+use App\Models\Product;
+use App\Http\Requests\Product\StoreRequest;
 use Inertia\Inertia;
 
 class ProductController extends Controller
@@ -15,35 +16,27 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $lists = Catalog::where('user_id', '=', auth()->id())->select('list_data')->get();
+        // $lists = Catalog::where('user_id', '=', auth()->id())->select('list_data')->get();
 
-        $dateList = [];
-        foreach($lists as $list => $value) {
-            array_push($dateList, $value->list_data);
-        }
+        // $dateList = [];
+        // foreach($lists as $list => $value) {
+        //     array_push($dateList, $value->list_data);
+        // }
 
-        return Inertia::render('Products/Index', compact('dateList'));
+        // return Inertia::render('Products/Index', compact('dateList'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        Product::create($request->validated());
+
+        return redirect(route('shoppingLists.show'));
     }
 
     /**

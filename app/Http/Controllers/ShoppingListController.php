@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 // use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\ShoppingList\StoreRequest;
+use App\Models\Product;
+use App\Models\ProductsShoppingList;
 use App\Models\ShoppingList;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class ShoppingListController extends Controller
@@ -33,9 +36,8 @@ class ShoppingListController extends Controller
                 array_push($lists, $shoppingLists[$shoppingList]);
                 array_push($dateList, $value->shopping_list_date);
             }
-        }
+        }        
         
-        //dd([$lists, $shoppingLists, $dateList]);
         return Inertia::render('ShoppingList/Index', compact('lists', 'shoppingLists', 'dateList'));
     }
 
@@ -53,8 +55,7 @@ class ShoppingListController extends Controller
         foreach($lists as $list => $value) {
             array_push($dateList, $value->list_data);
         }
-        // $this->store();
-        // dd([$user_id, $lists, $dateList]);
+        
         return Inertia::render('ShoppingList/Create', compact('user_id', 'dateList'));
     }
 
@@ -64,14 +65,11 @@ class ShoppingListController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    // public function store(StoreRequest $request)
-    public function store()
+    public function store(StoreRequest $request)
     {
-        // $currentDay = date('Y-m-d');
-        // ShoppingList::create(['owner_user_id'=>1, 'shopping_list_date'=>$currentDay, 'list_name'=>'Тест 2', 'shop_id'=>'1']);
         ShoppingList::create($request->validated());
-        
-        return redirect(route('shoppingList.index'));
+
+        return redirect(route('shoppingLists.index'));
     }
 
     /**
@@ -80,9 +78,25 @@ class ShoppingListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($shopping_list_id)
     {
-        //
+        $shoplist = ShoppingList::where('id', $shopping_list_id)->first();
+
+        if ($shoplist->owner_user_id != auth()->id()){
+            dd('Не ваш список');
+        }else{
+            $productsShoppingList = ProductsShoppingList::where('shopping_list_id', '=', $shopping_list_id)->get();
+
+            $productlist=[];
+            foreach ($productsShoppingList as $list) {
+                $products = Product::where('id', '=', $list->product_id)->get();
+                foreach ($products as $product) {
+                    array_push($productlist, $product);
+                };
+            };
+        };
+
+        return Inertia::render('ShoppingList/Show', compact('productlist'));
     }
 
     /**

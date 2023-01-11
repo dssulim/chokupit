@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\ShoppingList;
+namespace App\Http\Requests\Product;
 
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
@@ -25,10 +25,7 @@ class StoreRequest extends FormRequest
     public function rules(User $user) :array
     {
         return [
-            'list_name' => ['required', 'string'],
-            'owner_user_id' => ['required', 'integer'],
-            'shopping_list_date' => ['string'],
-            'shop_id' => ['integer']
+            'product_name' => ['required', 'string']
         ];
     }
 }
