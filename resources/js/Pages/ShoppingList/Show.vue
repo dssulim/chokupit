@@ -1,11 +1,27 @@
 <script setup>
 import AuthLayout from '@/Layouts/AuthLayout.vue';
 import CalendarSelector from '@/Components/Calendar/CalendarSelector.vue';
-import { Link, Head } from '@inertiajs/inertia-vue3';
+import InputLabel from '@/Components/InputLabel.vue';
+import InputErrorData from '@/Components/InputErrorData.vue'
+import TextInput from '@/Components/TextInput.vue';
+import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import { computed, reactive, ref, watch } from 'vue';
+import store from '@/Store/store';
 
 const Productlist = defineProps({
   productlist: Array
 })
+
+const form = reactive(useForm ({
+  product_name: ''
+})) 
+
+const submit = () => {
+  // console.log(form);
+    form.post(route('productShoppingList.store'), {      
+      onSuccess: () => form.reset(), 
+    })
+};
 </script>
 
 
@@ -18,6 +34,18 @@ const Productlist = defineProps({
           {{ product.product_name }}
         </div>
       </div>
+
+      <form class="mt-6" @submit.prevent= "submit">
+          <div>
+            <InputLabel for="name" value="Введите новый продукт" />
+            <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.product_name" required autofocus autocomplete="name" />
+          </div>
+            <div class="flex items-center justify-end mt-4">
+                <button type="submit" class="btn-primary">Create</button>
+            </div>
+        </form>
+
+
   </AuthLayout>
 </template>
 
