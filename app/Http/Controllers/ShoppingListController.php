@@ -83,7 +83,8 @@ class ShoppingListController extends Controller
         $shoplist = ShoppingList::where('id', $shopping_list_id)->first();
 
         if ($shoplist->owner_user_id != auth()->id()){
-            dd('Не ваш список');
+            abort(404);
+            // dd('Не ваш список');
         }else{
             $productsShoppingList = ProductsShoppingList::where('shopping_list_id', '=', $shopping_list_id)->get();
 
