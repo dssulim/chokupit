@@ -85,6 +85,12 @@
                     <DropdownLink :href="route('shops.index')">
                       My Shops
                     </DropdownLink>
+                    <DropdownLink :href="route('my_friends.index')">
+                      My Friends
+                    </DropdownLink>
+                      <DropdownLink :href="route('users.index')">
+                          All people
+                      </DropdownLink>
                     <DropdownLink
                       :href="route('logout')"
                       method="post"

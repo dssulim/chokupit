@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers;
+use App\Http\Controllers\MyFriendsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CalendarController;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,11 +37,14 @@ Route::get('/', function () {
 Route::get('/about', AboutController::class, 'about') -> name('about');
 Route::get('/calendar_page', CalendarController::class, 'calendar') -> name('calendar');
 
-Route::get('/clear', function() {    
-    Artisan::call('cache:clear');    
-    Artisan::call('config:cache');    
-    Artisan::call('view:clear');  
-    Artisan::call('route:clear');    
+Route::resource('/my_friends', MyFriendsController::class);
+Route::resource('/users', UsersController::class);
+
+Route::get('/clear', function() {
+    Artisan::call('cache:clear');
+    Artisan::call('config:cache');
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
     return "Кэш очищен.";});
 
 Route::resources([

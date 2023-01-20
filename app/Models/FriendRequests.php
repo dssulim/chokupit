@@ -19,7 +19,7 @@ class FriendRequests extends Model
      */
     protected $fillable = [
         'initiator_user_id',
-        'starget_user_id',
+        'target_user_id',
         'status',
         'created_at',
         'updated_at',
@@ -30,8 +30,8 @@ class FriendRequests extends Model
 		return $this->hasMany(User::class, 'id', 'initiator_user_id');
 	}
 
-    public function starget_user_id(): HasMany
+    public function target_user_id(): HasMany
 	{
-		return $this->hasMany(User::class, 'id', 'starget_user_id');
+		return $this->hasMany(User::class, 'id', 'target_user_id');
 	}
 }
