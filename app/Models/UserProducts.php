@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use App\Models\User;
+use App\Models\Product;
 
 class UserProducts extends Model
 {
@@ -17,13 +19,13 @@ class UserProducts extends Model
         'product_id',
     ];
 
-    public function user_id(): HasMany
+    public function user(): HasOne
 	{
-		return $this->HasMany(User::class);
+		return $this->HasOne(User::class);
 	}
 
-    public function product_id(): HasMany
+    public function product(): HasOne
 	{
-		return $this->HasMany(Product::class);
+		return $this->HasOne(Product::class);
 	}
 }

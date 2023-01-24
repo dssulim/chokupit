@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\UserRoles;
+use App\Models\UserProducts;
 
 class User extends Authenticatable
 {
@@ -42,7 +45,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-    ];
+    ]; 
 
     /**
      * The attributes that should be cast.
@@ -53,8 +56,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function user_role_id(): HasOne
+    public function userRole(): HasOne
 	{
-		return $this->hasOne(UserRoles::class);
+		return $this->hasOne(UserRoles::class, 'id', 'user_role_id');
 	}
+
+    public function userProducts() : BelongsTo
+    {
+        return $this->belongsTo(UserProducts::class);
+    }
 }
