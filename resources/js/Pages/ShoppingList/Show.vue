@@ -9,15 +9,16 @@ import { computed, reactive, ref, watch } from 'vue';
 import store from '@/Store/store';
 
 const Productlist = defineProps({
-  productlist: Array
+  productlist: Array,
+  shoppingListID: Number,
 })
 
 const form = reactive(useForm ({
-  product_name: ''
+  product_name: '',
+  shopping_list_id: Productlist.shoppingListID 
 })) 
 
 const submit = () => {
-  // console.log(form);
     form.post(route('productShoppingList.store'), {      
       onSuccess: () => form.reset(), 
     })
@@ -28,7 +29,7 @@ const submit = () => {
 <template>
   <Head title="product in list" />
   <AuthLayout>
-
+    
       <div>
         <div v-for="product in Productlist.productlist" :key="product.id">
           {{ product.product_name }}

@@ -8,6 +8,7 @@ use App\Http\Requests\ShoppingList\StoreRequest;
 use App\Models\Product;
 use App\Models\ProductsShoppingList;
 use App\Models\ShoppingList;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -20,6 +21,11 @@ class ShoppingListController extends Controller
      */
     public function index()
     {
+        // $user = User::find(1);
+        // $userRoleId = $userRole->user_role_id();
+        // dd($user->userRole->user_role_description);
+
+
         $shoppingLists = ShoppingList::where('owner_user_id', '=', auth()->id())
             ->orderBy('shopping_list_date', 'asc')
             ->get();
@@ -80,11 +86,11 @@ class ShoppingListController extends Controller
      */
     public function show($shopping_list_id)
     {
+        $shoppingListID = $shopping_list_id;
         $shoplist = ShoppingList::where('id', $shopping_list_id)->first();
 
         if ($shoplist->owner_user_id != auth()->id()){
             abort(404);
-            // dd('Не ваш список');
         }else{
             $productsShoppingList = ProductsShoppingList::where('shopping_list_id', '=', $shopping_list_id)->get();
 
@@ -97,7 +103,7 @@ class ShoppingListController extends Controller
             };
         };
 
-        return Inertia::render('ShoppingList/Show', compact('productlist'));
+        return Inertia::render('ShoppingList/Show', compact('productlist', 'shoppingListID'));
     }
 
     /**
@@ -129,8 +135,12 @@ class ShoppingListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($shopping_list_id)
     {
-        //
+        $shoppingListID = $shopping_list_id;
+        $shoplist = ShoppingList::find($shoppingListID);
+        $shoplist->delete();
+
+        return redirect(route('shoppingLists.index'));
     }
 }
