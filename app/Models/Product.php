@@ -32,6 +32,6 @@ class Product extends Model
 
     public function productsShoppingList() : BelongsTo
     {
-        return $this->belongsTo(ProductsShoppingList::class);
+        return $this->belongsTo(ProductsShoppingList::class,  'id', 'product_id');
     }
 }

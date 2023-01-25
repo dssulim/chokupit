@@ -89,10 +89,13 @@ class ProductShoppingListController extends Controller
      */
     public function destroy($id)
     {
-        $shoppingListID = $id;
-        $shoplist = Product::find($id);
-        $shoplist->delete();
+        $procuct = Product::find($id);
 
+        ProductsShoppingList::where('shopping_list_id', $procuct->productsShoppingList->shopping_list_id)
+        ->where('product_id', $id)->delete();
+        
+        $procuct->delete();
+        
         return redirect(route('productShoppingList.index'));
     }
 }

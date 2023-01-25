@@ -34,6 +34,6 @@ class ProductsShoppingList extends Model
 
     public function product(): HasMany
 	{
-		return $this->HasMany(Product::class);
+		return $this->HasMany(Product::class,  'product_id', 'id');
 	}
 }
