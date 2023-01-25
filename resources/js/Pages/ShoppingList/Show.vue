@@ -30,8 +30,11 @@ const submit = () => {
   <Head title="product in list" />
   <AuthLayout>
     
-      <div>
-        <div v-for="product in Productlist.productlist" :key="product.id">
+      <div class="w-full flex flex-col mt-6">
+        <div v-for="product in Productlist.productlist" 
+          :key="product.id"   
+          class="hover:cursor-pointer w-full flex items-center justify-between mb-2 pb-2 border-b border-stone-400"
+          >
           {{ product.product_name }}
           <Link :href="route('productShoppingList.destroy', product.id)" method="delete" as="button" class="flex items-center justify-end w-[10%]">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
